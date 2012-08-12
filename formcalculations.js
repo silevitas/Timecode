@@ -32,7 +32,7 @@ You are free to use the code in Commercial or non-commercial projects
 		frameRateValue = frame_rates[selectedFrameRate.value];
 
 		// debug
-		// console.log('getFramerate processed');
+		console.log('getFramerate processed');
 
 		//finally we return the frame rate value
 		return frameRateValue;
@@ -43,32 +43,32 @@ You are free to use the code in Commercial or non-commercial projects
 	{
 		//Get a reference to the form id="timeform"
 		var theForm = document.forms["timeform"];
+		
 		//Get a reference to the text field id="timecode"
-		var inputTimecodeTemp = theForm.elements["timecode"];
-		var inputTimecode = inputTimecodeTemp.value;
+		//var inputTimecodeTemp = theForm.elements["timecode"];
+		//var inputTimecode = inputTimecodeTemp.value;
 
-		//Break up the timecode into h, m, s, f
-		timecodeArray = inputTimecode.split(":");
+		var timecodeHours = theForm.elements["tchours"];
+		var timecodeMinutes = theForm.elements["tcminutes"];
+		var timecodeSeconds = theForm.elements["tcseconds"];
+		var timecodeFrames = theForm.elements["tcframes"];
 		
-		var hours = timecodeArray[0];
-		var minutes = timecodeArray[1];
-		var seconds = timecodeArray[2];
-		var frames = timecodeArray[3];
-		
-		console.log('Timecode: ' + hours + minutes + seconds + frames);
-		
+		console.log('Timecode: ' + timecodeHours.value + timecodeMinutes.value 
+					+ timecodeSeconds.value + timecodeFrames.value);
+	
 		// divide 1000 by number of frames and round
 		var frameRateMod = getFramerate();
 		frameRateMod1000 = (1000/frameRateMod);
-		//var frameRateRound = Math.pow(frameRateMod1000,2);
+		
 		var frameRateRound = Math.round(frameRateMod1000*100)/100;
 		console.log('Frames as milliseconds rounded: ' + frameRateRound);
 
-		var timeTemp = (hours * 3600000) + (minutes * 60000) + (seconds * 1000);
-		console.log('Milliseconds without frames: ' + timeTemp);
+		var timeTemp = (timecodeHours.value * 3600000) + (timecodeMinutes.value * 60000)
+						 + (timecodeSeconds.value * 1000);
+		console.log('Milliseconds without frames considered: ' + timeTemp);
 
-		var TotalMilliseconds = timeTemp + (frames * frameRateRound);
-		console.log('Total Milliseconds: ' + TotalMilliseconds);
+		var TotalMilliseconds = timeTemp + (timecodeFrames.value * frameRateRound);
+		//console.log('Total Milliseconds: ' + TotalMilliseconds);
 		
 		return TotalMilliseconds;
 	}

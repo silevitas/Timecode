@@ -5,12 +5,38 @@
 	<title>Timecode to Milliseconds Calculator</title>
 
 	<script type="text/javascript" src="formcalculations.js"></script>
+	<style type="text/css">
+		html, body, h1, form, fieldset, legend, ol, li {
+			margin: 0;
+			padding: 0;
+		}
+		body {
+			background: #ffffff;
+			color: #111111;
+			font-family: Helvetica, Verdana, Arial, sans-serif;
+			padding: 20px;
+		}
+		form#timeform {
+			margin: 10em auto 0 auto;
+			width: 400px;
+			line-height: 2em;
+			text-align: center;
+		}
+
+		#timeform.text {
+			width: 1em;
+		}
+
+		#submit {
+			width: 200px;
+		}
+	</style>
 </head>
 <body id="timecalc" onload="hideTotal()">
 	<div id="wrap">
 		<form action="" id="timeform" onsubmit="return false;">
 			<div>
-				<label>Framerate</label>
+				<label>Framerate</label><br />
 				<select id="framerate" name='framerate' onchange="calculateTotal()">
 					<option value="thirty">30</option>
 					<option value="twentynine">29.997</option>
@@ -19,13 +45,20 @@
 					<option value="twentythree">23.98</option>
 					<option value="fifteen">15</option>
 				</select>
-				<br/>
-				<input type="text" id="timecode" name="timecode" value="00:00:00:00"  />
+				<br />
+				<label>Timecode</label><br />
+					<input type="text" id="tchours" name="tchours" value="00" size="2"  />
+					<label>:</label>
+					<input type="text" id="tcminutes" name="tcminutes" value="00" size="2"  />
+					<label>:</label>
+					<input type="text" id="tcseconds" name="tcseconds" value="00" size="2"  />
+					<label>:</label>
+					<input type="text" id="tcframes" name="tcframes" value="00" size="2"  />
 			</div>
-			<input type='submit' id='submit' value='Submit' onclick="calculateTotal()" />
+			<input type="submit" id="submit" value="Submit" onclick="calculateTotal()" />
+			<br />
+			<div id="millisecondsfield"></div>
 		</form>
-		<div id="millisecondsfield"></div>
-		<!-- Git test -->
 	</div>
 </body>
 </html>
